@@ -1,0 +1,3 @@
+:-coinductive bitstream/1.
+bitstream(cons(0, S)) :- bitstream(S).
+bitstream(cons(1, S)) :- bitstream(S).

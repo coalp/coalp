@@ -1,0 +1,10 @@
+goal(Y,X) :- natstream(Y,X),bitstream(X).
+
+nat(0).
+nat(s(N)) :- nat(N).
+:-coinductive(natstream/2).
+natstream(N, cons(N, S)) :- nat(N), natstream(s(N), S).
+
+:-coinductive(bitstream/1).
+bitstream(cons(0, S)) :- bitstream(S).
+bitstream(cons(s(0), S)) :- bitstream(S).

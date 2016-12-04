@@ -1,0 +1,5 @@
+nat(0).
+nat(s(X)):-nat(X).
+
+:- coinductive list/1.
+list(cons(X,Y)):-nat(X),list(Y).

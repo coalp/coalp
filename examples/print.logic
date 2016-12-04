@@ -1,0 +1,2 @@
+:- coinductive p/1.
+p(s(X)):-format("test",[]),p(X).

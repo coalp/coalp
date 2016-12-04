@@ -1,0 +1,2 @@
+:-coinductive(from/2).
+from(X,scons(X,Y)):-from(s(X),Y).
