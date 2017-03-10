@@ -85,6 +85,7 @@ prove_(Goal,Trail,C1,C2):-
     functor(Goal,Pred,Arity),
     coinductive(Pred/Arity),!,
     copy_term(Goal,OGoal),
+    copy_term(Trail,OTrail),
     clause(program:Goal,Body,Ref),
     acyclic_term(Goal),
     clause(program:Head,_,Ref),
@@ -96,7 +97,7 @@ prove_(Goal,Trail,C1,C2):-
             cached_subterms(Ref,Head,Subterms),
             varcms(Goal,OGoal,Reducts),
             projs(Subterms,Reducts,Projs),
-            goalsbyref(Ref,Trail,Goals),
+            goalsbyref(Ref,OTrail,Goals),
             gcontext(Projs,Goals,Gctx),
             copy_term(Gctx,Gctx_copy),
             (fixpoint(Ref,Gctx_copy,Trail) ->
@@ -133,7 +134,6 @@ gcontextcheck(Goals,Proj):-
     append(_,[G1|Gs],Goals),
     append(_,[G2|_],Gs),
     reccms(G2,G1,CM),
-    %format("~w to ~w found reccms ~w\n",[G2,G1,CM]),nl,
     matches_any(Proj,CM).
 
 % gathers goals from the same clause (Ref)

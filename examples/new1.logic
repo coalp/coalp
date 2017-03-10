@@ -1,0 +1,3 @@
+num(s(X)).
+:-coinductive(list/2).
+list(s(X), cons(0,Y)) :- num(X), list(X,Y).

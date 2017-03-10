@@ -1,0 +1,9 @@
+n(0).
+n(s(0)).
+n(s(s(0))).
+n(s(s(s(0)))).
+n(s(s(s(s(0))))).
+n(s(s(s(s(s(0)))))).
+n(s(s(s(s(s(s(0))))))).
+:-coinductive(list/2).
+list(X,cons(X,Y)) :- n(X), list(s(X),Y).

@@ -1,0 +1,4 @@
+nat(0).
+nat(s(X)) :- nat(X).
+:-coinductive(list/2).
+list(s(X), cons(0,Y)) :- nat(x), list(X,Y).

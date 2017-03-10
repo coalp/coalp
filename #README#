@@ -1,0 +1,78 @@
+Copyright:
+	Copyright (C) 2016 The CoALP Authors.
+
+Program:
+	This program a prover and productivity checker following the theory
+	outlined in the papers:
+
+	“A Productivity Checker for Logic Programming”
+	 Pre-proceedings of LOPSTR'16, Edinburgh, UK.
+	 - Patricia Johann
+	 - Ekaterina Komendantskaya
+	 - Martin Schmidt
+
+	 “Structural Resolution: a Framework for Coinductive Proof Search and Proof Construction in Horn Clause Logic.” 
+	 Submitted to ACM Transcations in Computational Logic. 36 pages, November 2015. 
+	 - Patricia Johann
+	 - Ekaterina Komendantskaya
+
+Requirements:
+	SWI Prolog Version 7 or higher
+	- http://www.swi-prolog.org/Download.html
+
+	or using the systems package manager:
+	 (Ubuntu) sudo apt-get install swi-prolog
+
+	please make sure swipl command is executable directly
+	without additional path specifications.
+
+Getting started:
+	1) open a command line and execute:
+		(Unix)   ./coalp
+		(Windows) coalp.bat
+
+	2) load a program:
+		?- load(“examples/from.logic”).
+
+	3) execute a query:
+		?- query(from(0,X)).
+
+Predicates:
+	1) load(Path) and load(Path,Options)
+		loads the program under Path
+	2) query(Query) and query(Query,Options)
+		query the currently loaded program
+	3) list
+		lists the currently loaded program
+
+Options:
+
+	every option can be be disables by prepending a -.
+	
+	1) load(PATH,[Option,Option,...]).
+		where Option can be:
+		* gcheck (default:enabled)
+			check guardedness during program loading
+		* checkcycles (default:enabled)
+			only check predicates that have a path to call themselves
+
+	2) query(Query,[Option,Option,...]).
+		* allbuiltin (default:disabled)
+			enables all prolog builtins to be used directly
+		* loopcheck (default:disabled)
+			check for infinite loops during search
+			(not needed if guardedness checks have passed during load)
+
+Output Notes:
+    Clauses are enumerated for each predicate starting with 0:
+
+Directories:
+    examples   | example logic input files
+
+Developer Contact:
+    Martin Möhrmann
+    Institute of Cognitive Science
+    University of Osnabrueck
+    Wachsbleiche 27
+    49090 Osnabrück 
+    Email: martisch@uos.de
