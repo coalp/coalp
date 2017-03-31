@@ -35,14 +35,35 @@ query(Goal,Options):-
     copy_term(Goal,Root),
     catch(prove_(Goal,[],[],C)),
     format('Goal: ~w\n',[Goal]),
-    print_coind(Root,C).
+    format('Sound observation for ~w is completed.\nThe set of inductively observed coinductive constructors is {\n',[Root]),
+    gather_tuples(C,[],T),
+    predsort(tcmp,T,S),
+    print_tuples(S),
+    format('}\n',[]).
 
-print_coind(_,[]).
+tcmp('=',E1,E2):-
+    E1=@=E2,!.
+    
+tcmp(C,E1,E2):-
+    compare(C,E1,E2).
 
-print_coind(Root,[gc(Goal,_OGoal,Gctx)|Gc]):-
+gather_tuples([],T,T).
+
+gather_tuples([gc(Goal,_OGoal,Gctx)|Gc],T1,T2):-
     functor(Goal,Pred,Arity),
-    format('Hypothesis: ~w to ~w with guarding context ~w for predicate ~w/~w \n',[Root,Goal,Gctx,Pred,Arity]),
-    print_coind(Root,Gc).
+    add_tuples(Pred/Arity,Gctx,T1,T3),
+    gather_tuples(Gc,T3,T2).
+
+print_tuples([]).
+
+print_tuples([T|R]):-
+    format(' (~w)\n',T),
+    print_tuples(R).
+
+add_tuples(_,[],T,T).
+
+add_tuples(Pred/Arity,[(F,Path)|G],T1,[(Pred/Arity,F,Path)|T2]):-
+    add_tuples(Pred/Arity,G,T1,T2).
 
 % needed for clauses with empty body (Head:-true)
 prove_(true,_,C,C):-!.
